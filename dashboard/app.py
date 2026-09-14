@@ -259,7 +259,11 @@ if "Borrower Application" in portal_mode:
         horizontal=True
     )
     
-    row_fs = df_fs.loc[target_id] if (df_fs is not None and target_id in df_fs.index) else None
+    if df_fs is not None and target_id in df_fs.index:
+        val = df_fs.loc[target_id]
+        row_fs = val.iloc[0] if isinstance(val, pd.DataFrame) else val
+    else:
+        row_fs = None
     
     if "1. Phone" in step:
         st.markdown("<div class='ux-card'>", unsafe_allow_html=True)
@@ -381,7 +385,10 @@ if "Borrower Application" in portal_mode:
             
             # Compute real P50 income using our Quantile LightGBM models
             if row_fs is not None:
-                row_fs_df = df_fs.loc[[target_id]]
+                if df_fs is None or target_id not in df_fs.index:
+            st.warning(fCustomer {target_id} not found in feature store. Please select an available customer ID.)
+            st.stop()
+        row_fs_df = df_fs.loc[[target_id]]
                 live_scores = composite_scorer.compute_scores(row_fs_df)
                 r_live = live_scores.iloc[0]
                 base_p50 = float(r_live.get('p50_income', 65000.0))
@@ -408,7 +415,10 @@ if "Borrower Application" in portal_mode:
         st.markdown("### Screen 5: Loan Customization, Transparent Pricing & e-Signature")
         
         if row_fs is not None:
-            row_fs_df = df_fs.loc[[target_id]]
+            if df_fs is None or target_id not in df_fs.index:
+            st.warning(fCustomer {target_id} not found in feature store. Please select an available customer ID.)
+            st.stop()
+        row_fs_df = df_fs.loc[[target_id]]
             live_scores = composite_scorer.compute_scores(row_fs_df)
             r_score = live_scores.iloc[0]
             
@@ -655,6 +665,9 @@ else:
             st.stop()
             
         row_fs = df_fs.loc[target_id]
+        if df_fs is None or target_id not in df_fs.index:
+            st.warning(fCustomer {target_id} not found in feature store. Please select an available customer ID.)
+            st.stop()
         row_fs_df = df_fs.loc[[target_id]]
         live_scores = composite_scorer.compute_scores(row_fs_df)
         r_score = live_scores.iloc[0]
@@ -753,9 +766,16 @@ else:
         st.markdown("<h1 style='font-size:1.8rem;font-weight:800;color:#f1f5f9;margin-bottom:4px;'>💵 Quantile Income Prediction & Multi-Bound Capacity Sizing</h1>", unsafe_allow_html=True)
         st.markdown(f"<p style='color:#64748b;margin-bottom:20px;'>LightGBM Quantile Pinball Loss Bounds & 4-Bound Limit Sizing for <code>{target_id}</code></p>", unsafe_allow_html=True)
         
-        row_fs = df_fs.loc[target_id] if (df_fs is not None and target_id in df_fs.index) else None
+        if df_fs is not None and target_id in df_fs.index:
+        val = df_fs.loc[target_id]
+        row_fs = val.iloc[0] if isinstance(val, pd.DataFrame) else val
+    else:
+        row_fs = None
         if row_fs is not None:
-            row_fs_df = df_fs.loc[[target_id]]
+            if df_fs is None or target_id not in df_fs.index:
+            st.warning(fCustomer {target_id} not found in feature store. Please select an available customer ID.)
+            st.stop()
+        row_fs_df = df_fs.loc[[target_id]]
             live_scores = composite_scorer.compute_scores(row_fs_df)
             r_score = live_scores.iloc[0]
             p10 = float(r_score.get('p10_income', 55000.0))
@@ -790,7 +810,14 @@ else:
         st.markdown("<h1 style='font-size:1.8rem;font-weight:800;color:#f1f5f9;margin-bottom:4px;'>Explainable AI & Adverse Action Generator (SHAP)</h1>", unsafe_allow_html=True)
         st.markdown(f"<p style='color:#64748b;margin-bottom:20px;'>Feature Attribution and Regulatory Adverse Action Reason Codes for <code>{target_id}</code></p>", unsafe_allow_html=True)
         
-        row_fs = df_fs.loc[target_id] if (df_fs is not None and target_id in df_fs.index) else None
+        if df_fs is not None and target_id in df_fs.index:
+        val = df_fs.loc[target_id]
+        row_fs = val.iloc[0] if isinstance(val, pd.DataFrame) else val
+    else:
+        row_fs = None
+        if df_fs is None or target_id not in df_fs.index:
+            st.warning(fCustomer {target_id} not found in feature store. Please select an available customer ID.)
+            st.stop()
         row_fs_df = df_fs.loc[[target_id]]
         live_scores = composite_scorer.compute_scores(row_fs_df)
         r_score = live_scores.iloc[0]
