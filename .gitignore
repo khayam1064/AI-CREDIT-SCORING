@@ -1,0 +1,25 @@
+﻿# Python virtual environments and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Cloudflare & temporary binaries
+cloudflared.exe
+*.exe
+
+# Large raw CSV files (>50MB, not needed for app execution)
+data/raw/*.csv
+check/data/raw/*.csv
+check/datasets/raw/*.csv
+datasets/raw/*.csv
+data/processed/credit_scores_250k.csv
+reports/*.csv
+*.log
+
+# Large temporary datasets (the app loads pre-scored samples or features directly)
+feature_store/customer_features_v2.parquet
+check/feature_store/customer_features.parquet
+feature_store/customer_features.parquet

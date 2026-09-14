@@ -1,0 +1,11 @@
+customer_id, first_name, last_name, age, city      , composite_score_1000, credit_grade, calibrated_pd, p10_income, p50_income, p90_income, foir_pct, credit_decision
+CUST0008856, Salman    , Dar      ,  49, Lahore    ,                  851, A           ,        0.0024,  174060.12,  199826.2 ,  205993.91,    25.12, APPROVED
+CUST0173277, Salman    , Akhtar   ,  46, Gujranwala,                  827, A           ,        0.0037,  154169.83,  169628.37,  173087.94,     7.4 , APPROVED
+CUST0079755, Adnan     , Hashmi   ,  55, Faisalabad,                  821, A           ,        0.0041,   55875.84,   66931.66,   72938.14,     3.37, APPROVED
+CUST0147354, Mariam    , Siddiqui ,  45, Karachi   ,                  806, A           ,        0.0053,   85751.54,  116180.89,  134235.97,     7.42, APPROVED
+CUST0172409, Awais     , Zafar    ,  59, Karachi   ,                  794, A           ,        0.0065,  105024.01,  106447.75,  113541.75,     8.87, APPROVED
+CUST0014320, Adeel     , Niazi    ,  56, Karachi   ,                  793, A           ,        0.0066,  265719.54,  293536.68,  305936.49,    42.66, APPROVED
+CUST0175536, Anum      , Shah     ,  33, Gujranwala,                  788, A           ,        0.0073,  107714.2 ,  109113.12,  115141.86,    15.41, APPROVED
+CUST0192961, Kiran     , Hashmi   ,  35, Multan    ,                  788, A           ,        0.0072,   94610.37,  119114.43,  127996.0 ,    12.52, APPROVED
+CUST0146789, Noor      , Yousaf   ,  47, Sialkot   ,                  785, A           ,        0.0075,   49691.23,   62183.82,   84643.47,     3.02, APPROVED
+CUST0113221, Sajid     , Malik    ,  37, Islamabad ,                  783, A           ,        0.0079,  229094.34,  238773.23,  239271.74,    31.08, APPROVED

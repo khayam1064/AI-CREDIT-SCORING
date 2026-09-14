@@ -1,0 +1,86 @@
+# Used for:
+# Data generation
+# Numerical computations
+# Probability distributions
+# Fake customer generation
+# Progress bars
+numpy
+pandas
+scipy
+faker
+tqdm
+
+# Used for:
+# Preprocessing
+# One-Hot Encoding
+# Train/Test Split
+# Metrics
+# LightGBM
+# XGBoost
+# Saving models
+
+scikit-learn
+lightgbm
+xgboost
+joblib
+
+# Used for:
+# EDA
+# Feature Importance
+# Charts
+# Dashboard graphs
+
+matplotlib
+seaborn
+plotly
+
+
+# Used for:
+# REST API
+# Model serving
+fastapi
+uvicorn
+pydantic
+
+
+# Used for:
+# SHAP values
+# LIME explanations
+shap
+lime
+
+
+# Used for:
+# Enterprise data validation
+# Schema validation
+pandera
+statsmodels
+missingno
+
+
+# Used for:
+# Environment variables
+# Configuration files
+python-dotenv
+pyyaml
+
+# Excel Support
+openpyxl
+xlsxwriter
+
+# We'll use this later for tuning:
+# LightGBM
+# XGBoost
+optuna
+cloudpickle
+
+# Optional Jupyter
+notebook
+jupyterlab
+ipykernel
+
+# Useful later for:
+# Data drift
+# Model drift
+# Production monitoring
+evidently

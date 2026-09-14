@@ -1,0 +1,17 @@
+﻿streamlit
+fastapi
+uvicorn
+pydantic
+numpy
+pandas
+scipy
+scikit-learn
+lightgbm
+xgboost
+joblib
+plotly
+shap
+pyarrow
+pyyaml
+python-dotenv
+requests

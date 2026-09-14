@@ -1,0 +1,21 @@
+================================================================================
+                    LOAN APPROVAL REPORT SUMMARY
+================================================================================
+Generated: 2026-08-18 12:31:29
+Total Customers Processed: 250,000
+
+DECISION DISTRIBUTION:
+----------------------------------------
+APPROVED    : 245,207 (98.08%)
+DECLINED    :  4,793 ( 1.92%)
+
+APPROVED CREDIT EXPOSURE:
+----------------------------------------
+Total Term Loan Limit:     PKR 277,930,307,000
+Total Card Limit:          PKR 71,476,534,000
+Avg Term Loan Limit:       PKR 1,133,452
+Avg Card Limit:            PKR 291,495
+
+DECLINE REASONS:
+----------------------------------------
+INSAGFFICIENT_NET_DISPOSABLE_INCOME     : 4,793 (100.00%)

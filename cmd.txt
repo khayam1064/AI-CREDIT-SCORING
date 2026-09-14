@@ -1,0 +1,7 @@
+run both on different terminals
+
+(Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& d:\setups\income_ai_demo\.venv\Scripts\Activate.ps1)
+
+python -m uvicorn api.main:app --reload --port 8000
+
+python -m streamlit run dashboard/app.py
