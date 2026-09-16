@@ -26,7 +26,7 @@ def set_slide_background(slide):
     fill.solid()
     fill.fore_color.rgb = C_BG
 
-def add_header(slide, title_text, category_text="APEX CREDIT OS · PRODUCTION SYSTEM SPECIFICATION"):
+def add_header(slide, title_text, category_text="AI CREDIT SCORING OS · PRODUCTION SYSTEM SPECIFICATION"):
     tb = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.7), Inches(1.1))
     tf = tb.text_frame
     tf.word_wrap = True
@@ -63,7 +63,7 @@ tf = tb.text_frame
 tf.word_wrap = True
 
 p0 = tf.paragraphs[0]
-p0.text = "APEX CREDIT OS"
+p0.text = "AI CREDIT SCORING OS"
 p0.font.size = Pt(44)
 p0.font.bold = True
 p0.font.color.rgb = C_TEXT_MAIN

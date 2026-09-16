@@ -24,7 +24,7 @@ def generate_institutional_credit_memo(customer_id: str, name: str, res_dict: di
     
     lines = [
         "==============================================================================",
-        "        APEX CREDIT OS · CREDIT ASSESSMENT MEMORANDUM (CAM)",
+        "        AI CREDIT SCORING OS · CREDIT ASSESSMENT MEMORANDUM (CAM)",
         "        STRICTLY CONFIDENTIAL · FOR RISK COMMITTEE APPROVAL ONLY",
         "==============================================================================",
         f"FACILITY REFERENCE:  CAM-{customer_id}-{date_tag}",

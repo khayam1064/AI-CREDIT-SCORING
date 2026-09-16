@@ -1,4 +1,4 @@
-# 🏛️ APEX CREDIT OS: Complete Head-to-Toe Executive Architecture & Technical Keynote
+# 🏛️ AI CREDIT SCORING OS: Complete Head-to-Toe Executive Architecture & Technical Keynote
 
 ---
 

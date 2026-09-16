@@ -19,7 +19,7 @@ from scoring import shap_explainer
 from scoring import monitoring_service
 
 app = FastAPI(
-    title="APEX CREDIT OS · Commercial REST API",
+    title="AI CREDIT SCORING OS · Commercial REST API",
     description="Tier-1 Enterprise Model-Serving & Underwriting Gateway (Basel III / IFRS 9 / SBP Compliant)",
     version="3.2.0"
 )

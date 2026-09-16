@@ -1,5 +1,5 @@
 ﻿# ENTERPRISE CLIENT ONBOARDING & DATA INGESTION GUIDE
-## APEX CREDIT AI DECISIONING ENGINE
+## AI CREDIT SCORING DECISIONING ENGINE
 **Document Version:** 1.0.0 (Production Blueprint)  
 **Target Audience:** Client Engineering Leads, Chief Risk Officers (CRO), Data Engineers, and Core Banking Developers (Ciihive / T24 / Finacle).
 
@@ -144,8 +144,9 @@ services:
 1. Install Python 3.11 or 3.13.
 2. Install dependencies: pip install -r requirements.txt.
 3. Start local server:
-   * Windows: Double-click un_offline_demo.bat.
-   * Linux: systemctl start apex-credit-ai.service.
+   * Windows: Double-click 
+un_offline_demo.bat.
+   * Linux: systemctl start ai-credit-scoring-ai.service.
 
 ---
 

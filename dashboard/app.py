@@ -34,7 +34,7 @@ except ImportError:
     generate_professional_customer_report = None
 
 st.set_page_config(
-    page_title="APEX CREDIT OS · Enterprise Risk & Digital Lending Platform",
+    page_title="AI CREDIT SCORING OS · Enterprise Risk & Digital Lending Platform",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -172,7 +172,7 @@ with st.sidebar:
     <div style='display:flex; align-items:center; gap:12px; margin-bottom:12px;'>
         <div style='font-size:2rem;'>🏦</div>
         <div>
-            <div style='font-size:1.15rem; font-weight:800; color:#f8fafc; letter-spacing:0.02em;'>PAK-CREDIT AI</div>
+            <div style='font-size:1.15rem; font-weight:800; color:#f8fafc; letter-spacing:0.02em;'>AI CREDIT SCORING</div>
             <div style='font-size:0.75rem; color:#60a5fa; font-weight:600;'>Enterprise Lending Platform</div>
         </div>
     </div>
@@ -918,4 +918,4 @@ else:
         f_df = pd.DataFrame(families, columns=["Family Code & Name", "Signal Scope", "Feature Count"])
         st.dataframe(f_df, use_container_width=True)
 
-st.markdown("---<div style='font-size:0.72rem;color:#475569;text-align:center;'>PAK-CREDIT AI  Production Version 2.0  Staged Underwriting Engine</div>", unsafe_allow_html=True)
+st.markdown("---<div style='font-size:0.72rem;color:#475569;text-align:center;'>AI CREDIT SCORING  Production Version 2.0  Staged Underwriting Engine</div>", unsafe_allow_html=True)
