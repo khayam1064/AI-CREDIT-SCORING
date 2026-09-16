@@ -71,13 +71,11 @@ To ensure regulatory compliance and prevent economic counter-intuition, monotoni
 #### Stacking Meta-Learner Formulation
 Base model predictions and sub-scores are collected into an Out-of-Fold (OOF) meta-vector $\mathbf{z}(\mathbf{x})$:
 
-$$\mathbf{z}(\mathbf{x}) = \left[ PD_{	ext{LGBM}}(\mathbf{x}), PD_{	ext{XGB}}(\mathbf{x}), PD_{	ext{Logit}}(\mathbf{x}), P_{01}(\mathbf{x}), \dots, P_{11}(\mathbf{x}) 
-ight]$$
+$$\mathbf{z}(\mathbf{x}) = \left[ PD_{	ext{LGBM}}(\mathbf{x}), PD_{	ext{XGB}}(\mathbf{x}), PD_{	ext{Logit}}(\mathbf{x}), P_{01}(\mathbf{x}), \dots, P_{11}(\mathbf{x}) ight]$$
 
 The ensembled default probability is computed via a regularized Logistic Stacking Meta-Learner:
 
-$$PD_{	ext{ens}}(\mathbf{x}) = \sigma\left(\mathbf{w}^T \mathbf{z}(\mathbf{x}) + b
-ight) = rac{1}{1 + e^{-(\mathbf{w}^T \mathbf{z}(\mathbf{x}) + b)}}$$
+$$PD_{	ext{ens}}(\mathbf{x}) = \sigma\left(\mathbf{w}^T \mathbf{z}(\mathbf{x}) + bight) = rac{1}{1 + e^{-(\mathbf{w}^T \mathbf{z}(\mathbf{x}) + b)}}$$
 
 ---
 
@@ -85,8 +83,7 @@ ight) = rac{1}{1 + e^{-(\mathbf{w}^T \mathbf{z}(\mathbf{x}) + b)}}$$
 
 Raw model outputs rank-order risk effectively but are rarely true uncalibrated probabilities. The engine applies isotonic regression / Platt scaling to map ensemble outputs to empirical default frequencies:
 
-$$PD_{	ext{cal}} = 	ext{IsotonicFit}\left(PD_{	ext{ens}} 	o 	ext{Observed Default Frequency by Score Decile}
-ight)$$
+$$PD_{	ext{cal}} = 	ext{IsotonicFit}\left(PD_{	ext{ens}} 	o 	ext{Observed Default Frequency by Score Decile}ight)$$
 
 #### Calibration Quality Metrics:
 1. **Brier Score:**
@@ -116,8 +113,7 @@ $$	ext{Factor} = rac{40}{\ln(2)} = 57.7078$$
 
 $$	ext{Offset} = 660 - 57.7078 \cdot \ln(15) = 660 - 156.273 = 503.727$$
 
-$$	ext{Score} = 	ext{clip}\left(503.73 + 57.71 \cdot \ln(	ext{Odds}), 300, 900
-ight)$$
+$$	ext{Score} = 	ext{clip}\left(503.73 + 57.71 \cdot \ln(	ext{Odds}), 300, 900ight)$$
 
 *Example Calculation:* For an applicant with calibrated $PD = 3.0\%$:
 $$	ext{Odds} = rac{1 - 0.03}{0.03} = 32.333$$
@@ -225,12 +221,10 @@ The decision engine is decoupled from the machine learning models: **models esti
 
 To prevent over-indebtedness while enabling progressive credit growth, loan limits are assigned via a 4-way minimum constraint equation:
 
-$$	ext{Approved Limit} = \min\left( 	ext{AffordabilityLimit}, 	ext{RiskLimit}, 	ext{PolicyCap}, 	ext{ProgressionCap} 
-ight)$$
+$$	ext{Approved Limit} = \min\left( 	ext{AffordabilityLimit}, 	ext{RiskLimit}, 	ext{PolicyCap}, 	ext{ProgressionCap} ight)$$
 
 1. **Affordability Limit:**
-   $$	ext{AffordabilityLimit} = 	ext{Max Disposable EMI} 	imes \left[ rac{1 - (1 + r)^{-n}}{r} 
-ight]$$
+   $$	ext{AffordabilityLimit} = 	ext{Max Disposable EMI} 	imes \left[ rac{1 - (1 + r)^{-n}}{r} ight]$$
    $$	ext{Where:} \quad 	ext{Max Disposable EMI} = (P10	ext{ Income} 	imes 	ext{FOIR}_{\max} - 	ext{Existing Debt Commitments}) 	imes 0.88$$
 2. **Risk Limit:**
    $$	ext{RiskLimit} = k(	ext{Grade}) 	imes P50	ext{ Monthly Income} 	imes 12 	imes 0.50$$
@@ -250,8 +244,7 @@ In compliance with Fair Credit Reporting Act (FCRA) and central bank adverse act
 ### Mathematical TreeExplainer Shapley Values
 For any tree-based prediction $f(\mathbf{x})$, the SHAP value $\phi_i$ allocates the marginal contribution of feature $i$ across all possible feature subsets $S \subseteq F \setminus \{i\}$:
 
-$$\phi_i(\mathbf{x}) = \sum_{S \subseteq F \setminus \{i\}} rac{|S|! (|F| - |S| - 1)!}{|F|!} \left[ f(S \cup \{i\}) - f(S) 
-ight]$$
+$$\phi_i(\mathbf{x}) = \sum_{S \subseteq F \setminus \{i\}} rac{|S|! (|F| - |S| - 1)!}{|F|!} \left[ f(S \cup \{i\}) - f(S) ight]$$
 
 ### Automated Adverse Action Reason Code Generator
 If an applicant is declined or routed to review, the top negative SHAP attributions are automatically translated into human-readable regulatory Adverse Action notices:
@@ -301,21 +294,3 @@ All 20 serialized machine learning models stored in `models/`:
 | `pd_meta_learner.joblib` | JOBLIB | 0.9 KB | Stage 2 Logistic Stacking Meta-Learner |
 | `pd_ensemble_features.joblib` | JOBLIB | 0.2 KB | Feature column list schema for Stage 2 ensemble |
 | `feature_columns.joblib` | JOBLIB | 0.5 KB | Feature column list schema for Income Regressors |
-
-
----
-
-## 7. Commercial Production Microservice & Real-Time REST API
-
-In Tier-1 banking deployments, the scoring models are served as a standalone, containerized **FastAPI REST microservice** (Port `8080`), decoupled from the web presentation UI.
-
-### Production Endpoints:
-* `GET /health`: Microservice readiness, engine version (`3.2.0-Production`), standard compliance checks.
-* `GET /api/v1/customers/{customer_id}`: Real-time full decisioning dossier (Composite score, risk grade, calibrated PD, P10/P50/P90 income quantiles, multi-bound limits, APR breakdown, and SHAP adverse action codes).
-* `POST /api/v1/score/underwrite`: Headless loan origination endpoint for mobile banking apps & core banking integrations (Temenos, Mambu, Thought Machine).
-* `GET /api/v1/portfolio/ifrs9`: Account-level dynamic EAD impairment calculations with multi-scenario macroeconomic stress testing (Baseline, Downturn, Upturn).
-* `GET /api/v1/portfolio/drift-monitoring`: Automated Population Stability Index (PSI) and Characteristic Feature Drift tracking.
-
-### Interactive OpenAPI Documentation:
-* Swagger UI: `http://localhost:8080/docs`
-* ReDoc Specification: `http://localhost:8080/redoc`

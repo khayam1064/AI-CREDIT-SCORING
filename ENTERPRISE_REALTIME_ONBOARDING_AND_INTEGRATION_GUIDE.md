@@ -2,9 +2,7 @@
 ## AI CREDIT SCORING DECISIONING ENGINE
 **Document Version:** 1.0.0 (Production Blueprint)  
 **Target Audience:** Client Engineering Leads, Chief Risk Officers (CRO), Data Engineers, and Core Banking Developers (Ciihive / T24 / Finacle).
-
 ---
-
 ## 1. Executive Summary & Architecture Paradigm
 
 This platform is a **portable, zero-vendor-lock-in AI Credit Underwriting Engine**. When a new financial institution (bank, microfinance bank, or digital lender) adopts this codebase, they replace our simulated data with **their own real-world customer telemetry and loan ledgers**.
