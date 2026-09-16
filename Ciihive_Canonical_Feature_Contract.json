@@ -1,0 +1,359 @@
+{
+  "title": "Ciihive Canonical Feature Contract for Real-Time Underwriting",
+  "version": "1.0.0",
+  "protocol": "HTTP/REST or gRPC",
+  "target_endpoint": "POST /score/customer/realtime",
+  "description": "Standardized canonical payload that Ciihive Spring Boot Data Aggregators must assemble and send to the AI Credit Decisioning Engine.",
+  "sla_ms": 15,
+  "data_families": {
+    "family_01_identity_demographics": {
+      "source": "NADRA / CNIC OCR / Form",
+      "attributes": {
+        "age": {
+          "type": "integer",
+          "range": [
+            18,
+            75
+          ],
+          "example": 31
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Male",
+            "Female",
+            "Other"
+          ],
+          "example": "Male"
+        },
+        "marital_status": {
+          "type": "string",
+          "enum": [
+            "Single",
+            "Married",
+            "Divorced"
+          ],
+          "example": "Single"
+        },
+        "education": {
+          "type": "string",
+          "enum": [
+            "Secondary",
+            "Bachelor",
+            "Master",
+            "Doctorate"
+          ],
+          "example": "Bachelor"
+        },
+        "city": {
+          "type": "string",
+          "example": "Islamabad"
+        },
+        "province": {
+          "type": "string",
+          "example": "Punjab"
+        },
+        "residential_status": {
+          "type": "string",
+          "enum": [
+            "Own",
+            "Rent",
+            "Family"
+          ],
+          "example": "Rent"
+        },
+        "years_at_address": {
+          "type": "float",
+          "example": 9.1
+        }
+      }
+    },
+    "family_02_device_telemetry": {
+      "source": "Mobile SDK / Passive App Telemetry",
+      "attributes": {
+        "dev_os_type": {
+          "type": "string",
+          "enum": [
+            "Android",
+            "iOS"
+          ],
+          "example": "Android"
+        },
+        "dev_os_version": {
+          "type": "integer",
+          "example": 13
+        },
+        "dev_is_rooted": {
+          "type": "boolean",
+          "critical_risk": true,
+          "example": false
+        },
+        "dev_emulator_detected": {
+          "type": "boolean",
+          "critical_risk": true,
+          "example": false
+        },
+        "dev_vpn_detected": {
+          "type": "boolean",
+          "example": false
+        },
+        "dev_proxy_detected": {
+          "type": "boolean",
+          "example": false
+        },
+        "dev_battery_pct": {
+          "type": "integer",
+          "example": 84
+        },
+        "dev_typing_speed_wpm": {
+          "type": "float",
+          "example": 24.2
+        },
+        "dev_hesitation_score": {
+          "type": "float",
+          "example": 30.1
+        },
+        "dev_behavioral_risk_score": {
+          "type": "float",
+          "example": 17.06
+        }
+      }
+    },
+    "family_03_employment_payroll": {
+      "source": "Employer / 1Link Payroll Verification",
+      "attributes": {
+        "employment_status": {
+          "type": "string",
+          "enum": [
+            "Employed",
+            "Self-Employed",
+            "Contract",
+            "Unemployed"
+          ],
+          "example": "Employed"
+        },
+        "industry": {
+          "type": "string",
+          "example": "Banking & Finance"
+        },
+        "company_size": {
+          "type": "string",
+          "enum": [
+            "Small",
+            "Medium",
+            "Large",
+            "Enterprise"
+          ],
+          "example": "Medium"
+        },
+        "years_of_experience": {
+          "type": "float",
+          "example": 7.2
+        },
+        "current_job_tenure": {
+          "type": "float",
+          "example": 0.28
+        },
+        "is_salary_verified": {
+          "type": "boolean",
+          "example": true
+        },
+        "payroll_provider": {
+          "type": "string",
+          "example": "SAP SuccessFactors"
+        }
+      }
+    },
+    "family_04_income_cashflow": {
+      "source": "Salary Slip / 1Link Bank Statement Ingestion",
+      "attributes": {
+        "monthly_salary": {
+          "type": "float",
+          "example": 154800.0
+        },
+        "net_monthly_salary": {
+          "type": "float",
+          "example": 138160.53
+        },
+        "total_monthly_income": {
+          "type": "float",
+          "example": 198698.41
+        },
+        "income_stability_score": {
+          "type": "float",
+          "range": [
+            0,
+            100
+          ],
+          "example": 65.6
+        },
+        "total_monthly_credit": {
+          "type": "float",
+          "example": 137685.16
+        },
+        "total_monthly_debit": {
+          "type": "float",
+          "example": 109583.2
+        },
+        "avg_monthly_balance": {
+          "type": "float",
+          "example": 127348.01
+        },
+        "net_monthly_cashflow": {
+          "type": "float",
+          "example": 28101.96
+        },
+        "foir_pct": {
+          "type": "float",
+          "regulatory_max": 45.0,
+          "example": 7.49
+        }
+      }
+    },
+    "family_05_telco_signals": {
+      "source": "Jazz / Telenor / Zong Telco APIs",
+      "attributes": {
+        "tel_sim_age_months": {
+          "type": "integer",
+          "example": 165
+        },
+        "tel_is_postpaid": {
+          "type": "boolean",
+          "example": false
+        },
+        "tel_recharge_frequency_monthly": {
+          "type": "integer",
+          "example": 12
+        },
+        "tel_avg_recharge_amount": {
+          "type": "float",
+          "example": 100.1
+        },
+        "tel_sim_tenure_stability_score": {
+          "type": "float",
+          "example": 100.0
+        },
+        "tel_telecom_credit_signal": {
+          "type": "float",
+          "example": 95.6
+        }
+      }
+    },
+    "family_06_digital_wallets": {
+      "source": "JazzCash / Easypaisa / Raast Open APIs",
+      "attributes": {
+        "wal_has_wallet": {
+          "type": "boolean",
+          "example": true
+        },
+        "wal_wallet_provider": {
+          "type": "string",
+          "example": "JazzCash"
+        },
+        "wal_avg_monthly_txn_count": {
+          "type": "integer",
+          "example": 18
+        },
+        "wal_avg_monthly_txn_value": {
+          "type": "float",
+          "example": 24500.0
+        },
+        "wal_bill_pay_via_wallet_6m": {
+          "type": "integer",
+          "example": 6
+        },
+        "wal_wallet_credit_signal": {
+          "type": "float",
+          "example": 82.4
+        }
+      }
+    },
+    "family_07_ciihive_relationship_ledger": {
+      "source": "Ciihive Core LMS Database",
+      "attributes": {
+        "ldr_has_internal_history": {
+          "type": "boolean",
+          "example": true
+        },
+        "ldr_prior_loans_count": {
+          "type": "integer",
+          "description": "Prior Repaid Clean Cycles",
+          "example": 1
+        },
+        "ldr_active_loans_count": {
+          "type": "integer",
+          "example": 0
+        },
+        "ldr_on_time_payment_rate": {
+          "type": "float",
+          "range": [
+            0.0,
+            1.0
+          ],
+          "example": 0.929
+        },
+        "ldr_max_dpd_ever": {
+          "type": "float",
+          "example": 0.0
+        },
+        "months_as_customer": {
+          "type": "integer",
+          "example": 25
+        },
+        "savings_ratio": {
+          "type": "float",
+          "example": 0.15
+        }
+      }
+    },
+    "family_08_application_velocity_fraud": {
+      "source": "Orchestrator & Fraud Gateway",
+      "attributes": {
+        "app_applications_same_device_7d": {
+          "type": "integer",
+          "example": 1
+        },
+        "app_applications_same_ip_24h": {
+          "type": "integer",
+          "example": 1
+        },
+        "app_cross_lender_velocity_30d": {
+          "type": "integer",
+          "example": 0
+        },
+        "app_device_fingerprint_match": {
+          "type": "boolean",
+          "example": true
+        },
+        "app_ip_geolocation_match": {
+          "type": "boolean",
+          "example": true
+        },
+        "app_velocity_risk_score": {
+          "type": "float",
+          "example": 18.0
+        }
+      }
+    },
+    "family_09_compliance_sanctions": {
+      "source": "NACTA / SBP / AML Watchlists",
+      "attributes": {
+        "is_pep": {
+          "type": "boolean",
+          "description": "Politically Exposed Person",
+          "example": false
+        },
+        "has_aml_flag": {
+          "type": "boolean",
+          "description": "Anti-Money Laundering Flag",
+          "example": false
+        },
+        "is_sanctioned": {
+          "type": "boolean",
+          "description": "OFAC / UN / NACTA Watchlist",
+          "example": false
+        }
+      }
+    }
+  }
+}
