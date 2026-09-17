@@ -448,3 +448,62 @@ def get_loan_ledger():
         "total_disbursed_loans": len(df),
         "ledger": df.to_dict(orient="records") if not df.empty else []
     }
+
+
+# ---------------------------------------------------------------------------
+# Real-Time Payload Underwriting Endpoint (Direct Ciihive Integration)
+# ---------------------------------------------------------------------------
+try:
+    from api.schemas import RealtimeApplicantPayload
+except ImportError:
+    from schemas import RealtimeApplicantPayload
+
+@app.post('/api/v1/score/customer/realtime', tags=['Credit Scoring'])
+def score_customer_realtime(payload: RealtimeApplicantPayload):
+    import pandas as pd
+    from scoring.composite_scorer import compute_scores
+    from scoring.policy_engine import calculate_limits_and_pricing
+
+    raw_dict = payload.dict()
+    df_in = pd.DataFrame([raw_dict])
+    scored_df = compute_scores(df_in)
+    r = scored_df.iloc[0]
+    existing_debt = float(r.get('total_monthly_debit', 0.0)) * 0.25 if 'total_monthly_debit' in r else 0.0
+    p10_val = float(r.get('p10_income', 50000.0))
+    p50_val = float(r.get('p50_income', 75000.0))
+    pricing = calculate_limits_and_pricing(
+        grade=str(r['credit_grade']),
+        pd_cal=float(r['calibrated_pd']),
+        p10_income=p10_val,
+        p50_income=p50_val,
+        existing_obligations=existing_debt,
+        prior_loans_count=int(payload.ldr_prior_loans_count or 0)
+    )
+    sub_scores = {}
+    for k in r.index:
+        if k.startswith('p0') or k.startswith('p1'):
+            val = r[k]
+            try:
+                sub_scores[k] = float(val)
+            except (ValueError, TypeError):
+                sub_scores[k] = str(val)
+    
+    return {
+        'status': 'SUCCESS',
+        'customer_id': payload.customer_id,
+        'credit_score': int(r['composite_score_1000']),
+        'credit_grade': str(r['credit_grade']),
+        'decision': str(r['credit_decision']),
+        'calibrated_pd': float(r['calibrated_pd']),
+        'decline_reason': str(r['decline_reason']) if pd.notna(r.get('decline_reason')) else None,
+        'approved_limit_pkr': float(pricing.get('approved_limit', 0.0)),
+        'recommended_apr_pct': float(pricing.get('recommended_apr', 0.0)),
+        'max_affordable_emi_pkr': float(pricing.get('max_affordable_emi', 0.0)),
+        'bounds': {
+            'bound_1_affordability_pkr': float(pricing.get('bound_1_affordability', 0.0)),
+            'bound_2_risk_cap_pkr': float(pricing.get('bound_2_risk_cap', 0.0)),
+            'bound_3_policy_cap_pkr': float(pricing.get('bound_3_policy_cap', 0.0)),
+            'bound_4_progression_pkr': float(pricing.get('bound_4_progression', 0.0))
+        },
+        'sub_pillar_scores': sub_scores
+    }
